@@ -220,7 +220,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
         idx = bisect.bisect(cdf_vals, x)
         return population[idx]
 
-    def getAction(self, gameState):
+        def getAction(self, gameState):
         """
           Returns the minimax action from the current gameState using self.depth
           and self.evaluationFunction.
@@ -240,39 +240,46 @@ class MinimaxAgent(MultiAgentSearchAgent):
         "*** YOUR CODE HERE ***"
         # simply call the value function to start the minimax traversing.
 
-        # weights = [0.8, 0.05, 0.05, 0.05, 0.05]
-        # states = ['North', 'South', 'East', 'West', 'Stop']
-        # expected_value = self.value(gameState, 0, 0)
-        # states.remove(expected_value)
-        # population = [expected_value, states[0], states[1], states[2], states[3]]
-        # counts = collections.defaultdict(int)
-        # for i in range(10000):
-        #     counts[self.choice(population, weights)] += 1
-        # print(counts)
-        # print(self.value(gameState, 0, 0))
+        result = ''
+        legal_states = gameState.getLegalActions(0)
+        # print(legal_states)
+        # print('Ghost : {0}'.format(gameState.getLegalActions(1)))
+
         if 'Left' in gameState.getLegalActions(0) or 'Right' in gameState.getLegalActions(0) or 'Center' in gameState.getLegalActions(0):
-            weights = [0.8, 0.1, 0.1]
-            states = ['Left', 'Right', 'Center']
-            expected_value = self.value(gameState, 0, 0)
-            states.remove(expected_value)
-            population = [expected_value, states[0], states[1]]
-            counts = collections.defaultdict(int)
-            for i in range(10000):
-                counts[self.choice(population, weights)] += 1
-            print(counts)
+            weights = [0.8]
+            states = [self.value(gameState, 0, 0)]
+            legal_states.remove(self.value(gameState, 0, 0))
+            for ls in legal_states:
+                weights.append(0.2 / len(legal_states))
+                states.append(ls)
+            # expected_value = self.value(gameState, 0, 0)
+            # states.remove(expected_value)
+            # print(self.value(gameState, 0, 0))
+            # print(weights)
+            # print(states)
+            # print()
+            result = self.choice(states, weights)
+            # print('Result : {0}'.format(result))
+            # print('Expected : {0}'.format(self.value(gameState, 0, 0)))
 
         elif 'North' in gameState.getLegalActions(0) or 'South' in gameState.getLegalActions(0) or 'East' in gameState.getLegalActions(0) or 'West' in gameState.getLegalActions(0) or 'Stop' in gameState.getLegalActions(0):
-            weights = [0.8, 0.05, 0.05, 0.05, 0.05]
-            states = ['North', 'South', 'East', 'West', 'Stop']
-            expected_value = self.value(gameState, 0, 0)
-            states.remove(expected_value)
-            population = [expected_value, states[0], states[1], states[2], states[3]]
-            counts = collections.defaultdict(int)
-            for i in range(10000):
-                counts[self.choice(population, weights)] += 1
-            print(counts)
+            weights = [0.8]
+            states = [self.value(gameState, 0, 0)]
+            legal_states.remove(self.value(gameState, 0, 0))
+            for ls in legal_states:
+                weights.append(0.2 / len(legal_states))
+                states.append(ls)
+            # expected_value = self.value(gameState, 0, 0)
+            # states.remove(expected_value)
+            # print(self.value(gameState, 0, 0))
+            # print(weights)
+            # print(states)
+            # print()
+            result = self.choice(states, weights)
+            # print('Result : {0}'.format(result))
+            # print('Expected : {0}'.format(self.value(gameState, 0, 0)))
 
-        return self.value(gameState, 0, 0)
+        return result
 
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
