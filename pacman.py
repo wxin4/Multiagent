@@ -216,15 +216,34 @@ class GameState:
     #             Helper methods:               #
     # You shouldn't need to call these directly #
     #############################################
+    # def __init__(self, *args, **kwargs):
+    #     import time
+    #     self.gametimestart = time.time()
+    #     print self.gametimestart, "            ----------------------------VVVVVVVVVVVVVVVVV---------------"
+    #     if 'prevState'
+    #     prevState = kwargs['prevState']
+    #     if prevState != None: # Initial state
+    #         self.data = GameStateData(prevState.data)
+    #         # self.data.gametimestart = time.time()
+    #     else:
+    #         self.data = GameStateData()
+
+    # def __init__(self, *args, **kwargs):
 
     def __init__( self, prevState = None ):
         """
         Generates a new state by copying information from its predecessor.
         """
+        # import time
+        # self.gametimestart = time.time()
         if prevState != None: # Initial state
             self.data = GameStateData(prevState.data)
+            # self.data.gametimestart = time.time()
         else:
+            # import time
+            # gametimestart = time.time()
             self.data = GameStateData()
+            # self.data.gametimestart = time.time()
 
     def deepCopy( self ):
         state = GameState( self )
@@ -246,12 +265,15 @@ class GameState:
     def __str__( self ):
 
         return str(self.data)
-
-    def initialize( self, layout, numGhostAgents=1000 ):
+# ------------------------------------------------------------------------------------------
+    def initialize( self, layout, numGhostAgents=1000, timestart=0 ):
         """
         Creates an initial game state from a layout array (see layout.py).
         """
-        self.data.initialize(layout, numGhostAgents)
+        import time
+        timestart = time.time()
+        # print "..................................................-------------------------..............."
+        self.data.initialize(layout, numGhostAgents, timestart)
 
 ############################################################################
 #                     THE HIDDEN SECRETS OF PACMAN                         #
@@ -273,7 +295,9 @@ class ClassicGameRules:
 
     def newGame( self, layout, pacmanAgent, ghostAgents, display, quiet = False, catchExceptions=False):
         agents = [pacmanAgent] + ghostAgents[:layout.getNumGhosts()]
+        val = "-------------------------------------------------------------"
         initState = GameState()
+        # initState = GameState(None, None, prevState=None)
         initState.initialize( layout, len(ghostAgents) )
         game = Game(agents, display, self, catchExceptions=catchExceptions)
         game.state = initState
@@ -632,7 +656,11 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     rules = ClassicGameRules(timeout)
     games = []
 
+
     for i in range( numGames ):
+        import time
+        gametimestart = time.time()
+        # print  "---------------------Game start ------------------"
         beQuiet = i < numTraining
         if beQuiet:
                 # Suppress output and graphics
@@ -646,6 +674,9 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         game.run()
         if not beQuiet: games.append(game)
 
+        gamendtime = time.time()
+        # print gamendtime- gametimestart, "---------------------Game end ------------------"
+
         if record:
             import time, cPickle
             fname = ('recorded-game-%d' % (i + 1)) +  '-'.join([str(t) for t in time.localtime()[1:6]])
@@ -653,6 +684,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
             components = {'layout': layout, 'actions': game.moveHistory}
             cPickle.dump(components, f)
             f.close()
+        
 
     if (numGames-numTraining) > 0:
         scores = [game.state.getScore() for game in games]
@@ -662,6 +694,8 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         print 'Scores:       ', ', '.join([str(score) for score in scores])
         print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
         print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
+
+
 
     # return games
     # -------------------------------------------------------
@@ -690,7 +724,7 @@ if __name__ == '__main__':
 # -----------------------------------------------------------------------------
 
 
-
+    import time
 
     if '-a' in sys.argv:
         sys.argv.remove('-a')
@@ -712,13 +746,23 @@ if __name__ == '__main__':
     maxlevel = input()
 
     # if maxlevel > 10:
-    while maxlevel > 10 or maxlevel < 1:
-        print "Please enter any number between 1 to 10: ",
-        maxlevel = input()
+    isTrappedClassic = False
+    if 'trappedClassic' in sys.argv:
+        isTrappedClassic = True
+    if not isTrappedClassic:
+        while maxlevel > 7 or maxlevel < 1:
+            print "Please enter any number between 1 to 7: ",
+            maxlevel = input()
 
-    print "Enter any number to run Minimax with probability and 0 for without probability: ",
-    withprobflag = input()
-
+    else:
+        while maxlevel > 20 or maxlevel < 1:
+            print "For trapped Classic please enter any number between 1 to 20: ",
+            maxlevel = input()
+# ----------------------------------------------------------------------------------------
+    # print "Enter any number to run Minimax with probability and 0 for without probability: ",
+    # withprobflag = input()
+# ----------------------------------------------------------------------------------------
+    withprobflag = 1
 
     numofgamesforeach = 0
     indofn = 0
@@ -738,6 +782,7 @@ if __name__ == '__main__':
     maxwins = 0
     depthatmaxscore = 0
     depthatmaxswins = 0
+    leveltimes = []
     for depthLevel in range(1, maxlevel+1):
 
         # ------------------------------------------------ here better implementation to remove    .... depth
@@ -767,10 +812,21 @@ if __name__ == '__main__':
         # print sys.argv
 
 
-        print " We will run "+ numofgamesforeach+" games for each level with current... Reasoning Level - "+str(depthLevel)
+        print "We will run "+ numofgamesforeach+" games for each level with current... Reasoning Level - "+str(depthLevel)
         args = readCommand( sys.argv[1:] ) # Get game components based on input
         # print sys.argv
+        
+        levelstartime = time.time()
+        # print tic, "---------------------Game start ------------------"
+
         returnofrun = runGames( **args )
+
+        levelendtime = time.time()
+        leveltimelapsed = levelendtime-levelstartime
+        leveltimelapsed = round(leveltimelapsed, 2)
+        print "Time elapsed for this reasoning level: ", leveltimelapsed, " seconds"
+
+        leveltimes.append(leveltimelapsed)
         # print returnofrun[0], "         --------------------------------------------------------------------------"
         # print returnofrun[1], "         --------------------------------------------------------------------------"
         # print returnofrun[2], "         --------------------------------------------------------------------------"
@@ -782,13 +838,97 @@ if __name__ == '__main__':
             maxwins = returnofrun[2]
             depthatmaxwins = depthLevel
 
-        anslist.append((depthLevel, returnofrun[1], returnofrun[2]))
+        
+        winstr = "wins = "+str(returnofrun[2])+"/"+numofgamesforeach
+        anslist.append((depthLevel, returnofrun[1], winstr))
+
+#  above this time limit ... you will be categorized as overthinking
+    thresholdoverthink = int(numofgamesforeach)
+    if isTrappedClassic:
+        thresholdoverthink = 0.06*int(numofgamesforeach)
+
+    # thresholdoverthink = 2
+
+    underthinkinglevels = []
+    overthinkinglevels = []
+    optimalevel = 0
+
+    print 
+    print 
+    print "----------  ANALYSIS TIME ------------"
+    print 
+
+    # print thresholdoverthink, "       -------------            thresholdoverthink" 
+    
+    
+    for ind, leveltime in enumerate(leveltimes):
+        if leveltime < thresholdoverthink:
+            underthinkinglevels.append(ind+1)
+        else:
+            overthinkinglevels.append(ind+1)
+
+    underthinkinglevels.sort()
+    optimalevel = underthinkinglevels[-1]
+    underthinkinglevels.pop()
+
+    if isTrappedClassic:
+
+        while optimalevel > len(leveltimes)/2 and len(underthinkinglevels)> 0:
+            # print optimalevel , "          -------hooorororororo----- "
+            overthinkinglevels.append(optimalevel)
+            optimalevel = underthinkinglevels.pop()
+
+        myind = 0
+
+        while myind < len(underthinkinglevels):
+            if underthinkinglevels[myind] > optimalevel:
+                overthinkinglevels.append(underthinkinglevels[myind])
+                underthinkinglevels.pop(myind)
+            else:
+                myind+=1
+
+        myind = 0
+
+        while myind < len(overthinkinglevels):
+            if overthinkinglevels[myind] <= optimalevel:
+                underthinkinglevels.append(overthinkinglevels[myind])
+                overthinkinglevels.pop(myind)
+            else:
+                myind+=1
 
 
+
+
+    overthinkinglevels.sort()
+
+    
+
+
+    print "(Depth, Average Score, Wins)"
     print anslist
-
+    # print leveltimes
+    
+    print 
+    print "--------"
+    print 
+    print "Max Score and Max Wins"
     print maxavgscore, " score at level ", depthatmaxscore
     print maxwins, " wins  at level ", depthatmaxwins
+    print 
+
+    print " --------"
+    print 
+    print "(Reasoning level, Time taken)"
+
+    depthtime = zip([i for i in range(1, maxlevel+1)], leveltimes)
+    print depthtime
+    print 
+    print "---------"
+    print 
+    print "Under Thinking Levels--  ", underthinkinglevels
+    print "Optimal Thinking Level--  ", optimalevel 
+    print "Over Thinking Levels--   ", overthinkinglevels 
+    print 
 # -----------------------------------------------------------------------------
 
 

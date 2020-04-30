@@ -376,6 +376,7 @@ class GameStateData:
         """
         Generates a new data packet by copying information from its predecessor.
         """
+        import time
         if prevState != None:
             self.food = prevState.food.shallowCopy()
             self.capsules = prevState.capsules[:]
@@ -383,6 +384,10 @@ class GameStateData:
             self.layout = prevState.layout
             self._eaten = prevState._eaten
             self.score = prevState.score
+            self.gametimestart = prevState.gametimestart
+        else:
+            
+            self.gametimestart = time.time()
 
         self._foodEaten = None
         self._foodAdded = None
@@ -400,6 +405,9 @@ class GameStateData:
         state._foodEaten = self._foodEaten
         state._foodAdded = self._foodAdded
         state._capsuleEaten = self._capsuleEaten
+
+
+        state.gametimestart = self.gametimestart
         return state
 
     def copyAgentStates( self, agentStates ):
@@ -484,7 +492,7 @@ class GameStateData:
             return '3'
         return 'E'
 
-    def initialize( self, layout, numGhostAgents ):
+    def initialize( self, layout, numGhostAgents, gametimestart ):
         """
         Creates an initial game state from a layout array (see layout.py).
         """
@@ -494,6 +502,7 @@ class GameStateData:
         self.layout = layout
         self.score = 0
         self.scoreChange = 0
+        self.gametimestart = gametimestart
 
         self.agentStates = []
         numGhosts = 0
