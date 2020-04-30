@@ -750,13 +750,13 @@ if __name__ == '__main__':
     if 'trappedClassic' in sys.argv:
         isTrappedClassic = True
     if not isTrappedClassic:
-        while maxlevel > 7 or maxlevel < 1:
-            print "Please enter any number between 1 to 7: ",
+        while maxlevel > 6 or maxlevel < 1:
+            print "Please enter any number between 1 to 6: ",
             maxlevel = input()
 
     else:
-        while maxlevel > 20 or maxlevel < 1:
-            print "For trapped Classic please enter any number between 1 to 20: ",
+        while maxlevel > 8 or maxlevel < 1:
+            print "For trapped Classic please enter any number between 1 to 8: ",
             maxlevel = input()
 # ----------------------------------------------------------------------------------------
     # print "Enter any number to run Minimax with probability and 0 for without probability: ",
@@ -844,8 +844,8 @@ if __name__ == '__main__':
 
 #  above this time limit ... you will be categorized as overthinking
     thresholdoverthink = int(numofgamesforeach)
-    if isTrappedClassic:
-        thresholdoverthink = 0.06*int(numofgamesforeach)
+    # if isTrappedClassic:
+    #     thresholdoverthink = 0.06*int(numofgamesforeach)
 
     # thresholdoverthink = 2
 
@@ -860,41 +860,104 @@ if __name__ == '__main__':
 
     # print thresholdoverthink, "       -------------            thresholdoverthink" 
     
+    lastexectime = 0
+    # for ind, leveltime in enumerate(leveltimes):
+    #     if leveltime < thresholdoverthink:
+    #         underthinkinglevels.append(ind+1)
+    #     else:
+    #         overthinkinglevels.append(ind+1)
+    # thresholdoverthink 
+
+    withgraphics = True
+    if '-q' in sys.argv or '--quietTextGraphics' in sys.argv:
+        # print "-----------------------------------------------------------------------------------------"
+        withgraphics = False
+    # else:
+    #     withgraphics = True
+
+
+    if withgraphics:
+
+        for ind, leveltime in enumerate(leveltimes):
+            if ind > 0:
+                # if withgraphics:
+
+                if leveltime - lastexectime > 8:
+                    overthinkinglevels.append(ind+1)
+                    break
+                else: 
+                    underthinkinglevels.append(ind+1)
+            else:
+                underthinkinglevels.append(ind+1)
+
+            lastexectime = leveltime
+
+    else:
+
+        for ind, leveltime in enumerate(leveltimes):
+            if ind > 0:
+                # if withgraphics:
+
+                if leveltime > lastexectime*4:
+                    overthinkinglevels.append(ind+1)
+                    break
+                else: 
+                    underthinkinglevels.append(ind+1)
+            else:
+                underthinkinglevels.append(ind+1)
+
+            lastexectime = leveltime
     
-    for ind, leveltime in enumerate(leveltimes):
-        if leveltime < thresholdoverthink:
-            underthinkinglevels.append(ind+1)
-        else:
-            overthinkinglevels.append(ind+1)
+    n = len(leveltimes)
+    for i in range(ind+1, n):
+        # print "Overthinkings -------------"
+        overthinkinglevels.append(i+1)
+
+
+
+
+        # if leveltime < thresholdoverthink:
+        #     underthinkinglevels.append(ind+1)
+        # else:
+        #     overthinkinglevels.append(ind+1)
 
     underthinkinglevels.sort()
-    optimalevel = underthinkinglevels[-1]
-    underthinkinglevels.pop()
+    if len(underthinkinglevels) != 0:
+        optimalevel = underthinkinglevels[-1]
+        underthinkinglevels.pop()
+    elif len(overthinkinglevels) != 0:
+        optimalevel = overthinkinglevels[0]
+        overthinkinglevels.pop(0)
+    else:
+        print "No analysis to show"
+        print
+        exit()
+    
 
-    if isTrappedClassic:
+    # if isTrappedClassic:
 
-        while optimalevel > len(leveltimes)/2 and len(underthinkinglevels)> 0:
-            # print optimalevel , "          -------hooorororororo----- "
-            overthinkinglevels.append(optimalevel)
-            optimalevel = underthinkinglevels.pop()
+    #     while optimalevel > len(leveltimes)/2 and len(underthinkinglevels)> 0:
+    #         # print optimalevel , "          -------hooorororororo----- "
+    #         overthinkinglevels.append(optimalevel)
+    #         optimalevel = underthinkinglevels.pop()
 
-        myind = 0
+    #     myind = 0
 
-        while myind < len(underthinkinglevels):
-            if underthinkinglevels[myind] > optimalevel:
-                overthinkinglevels.append(underthinkinglevels[myind])
-                underthinkinglevels.pop(myind)
-            else:
-                myind+=1
+    #     while myind < len(underthinkinglevels):
+    #         if underthinkinglevels[myind] > optimalevel:
+    #             overthinkinglevels.append(underthinkinglevels[myind])
+    #             underthinkinglevels.pop(myind)
+    #         else:
+    #             myind+=1
 
-        myind = 0
+    #     myind = 0
 
-        while myind < len(overthinkinglevels):
-            if overthinkinglevels[myind] <= optimalevel:
-                underthinkinglevels.append(overthinkinglevels[myind])
-                overthinkinglevels.pop(myind)
-            else:
-                myind+=1
+    #     while myind < len(overthinkinglevels):
+    #         if overthinkinglevels[myind] <= optimalevel:
+    #             underthinkinglevels.append(overthinkinglevels[myind])
+    #             overthinkinglevels.pop(myind)
+    #         else:
+    #             myind+=1
 
 
 
