@@ -767,7 +767,7 @@ if __name__ == '__main__':
         # print sys.argv
 
 
-        print " We will run "+ numofgamesforeach+" games for agent with ... Depth Level - "+str(depthLevel)
+        print " We will run "+ numofgamesforeach+" games for each level with current... Reasoning Level - "+str(depthLevel)
         args = readCommand( sys.argv[1:] ) # Get game components based on input
         # print sys.argv
         returnofrun = runGames( **args )
