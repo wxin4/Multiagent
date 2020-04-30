@@ -195,8 +195,9 @@ class MultiAgentSearchAgent(Agent):
         self.betterEvaluationFunction = util.lookup(evalFn, globals())
         self.evaluationFunction = util.lookup(evalFn, globals())
         self.depth = int(depth)
-        print self.depth, "-----------------------------------------------------------------inside depth---------------"
-        print withprobflag, "-----------------------------------------------------------------inside withprobflag---------------"
+        self.withprobflag = withprobflag
+        # print self.depth, "-----------------------------------------------------------------inside depth---------------"
+        # print self.withprobflag, "-----------------------------------------------------------------inside withprobflag---------------"
 
 
 class MinimaxAgent(MultiAgentSearchAgent):

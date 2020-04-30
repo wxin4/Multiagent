@@ -764,16 +764,16 @@ if __name__ == '__main__':
             myagentargs += ',withprobflag=1'
         
         sys.argv.append(myagentargs)
-        print sys.argv
+        # print sys.argv
 
 
         print " We will run "+ numofgamesforeach+" games for agent with ... Depth Level - "+str(depthLevel)
         args = readCommand( sys.argv[1:] ) # Get game components based on input
-        print sys.argv
+        # print sys.argv
         returnofrun = runGames( **args )
-        print returnofrun[0], "         --------------------------------------------------------------------------"
-        print returnofrun[1], "         --------------------------------------------------------------------------"
-        print returnofrun[2], "         --------------------------------------------------------------------------"
+        # print returnofrun[0], "         --------------------------------------------------------------------------"
+        # print returnofrun[1], "         --------------------------------------------------------------------------"
+        # print returnofrun[2], "         --------------------------------------------------------------------------"
 
         if maxavgscore <= returnofrun[1]:
             maxavgscore = returnofrun[1]
