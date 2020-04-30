@@ -663,7 +663,14 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
         print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
 
-    return games
+    # return games
+    # -------------------------------------------------------
+        avgscore = sum(scores) / float(len(scores))
+        # depthlevel = 
+        numofwins = wins.count(True)
+
+    return games, avgscore, numofwins
+    # -------------------------------------------------------
 
 if __name__ == '__main__':
     """
@@ -676,8 +683,123 @@ if __name__ == '__main__':
 
     > python pacman.py --help
     """
-    args = readCommand( sys.argv[1:] ) # Get game components based on input
-    runGames( **args )
+    # args = readCommand( sys.argv[1:] ) # Get game components based on input
+    # runGames( **args )
+
+
+# -----------------------------------------------------------------------------
+
+
+
+
+    if '-a' in sys.argv:
+        sys.argv.remove('-a')
+    if '--agentArgs' in sys.argv:
+        sys.argv.remove('--agentArgs')
+# ------------------------------------------------ here better implementation to remove    .... depth
+    for arg in sys.argv:
+        if 'depth' in arg:
+            # print "Vishs"
+            sys.argv.remove(arg)
+    # print sys.argv
+            
+            # depthArgIndex = ind
+            # depthflag = True
+
+
+    print "Let's try reasoning at different levels"
+    print "Enter the different levels upto which you wanna try:",
+    maxlevel = input()
+
+    # if maxlevel > 10:
+    while maxlevel > 10 or maxlevel < 1:
+        print "Please enter any number between 1 to 10: ",
+        maxlevel = input()
+
+    print "Enter any number to run Minimax with probability and 0 for without probability: ",
+    withprobflag = input()
+
+
+    numofgamesforeach = 0
+    indofn = 0
+    if '-n' in sys.argv:
+        indofn = sys.argv.index('-n')
+        numofgamesforeach = sys.argv[indofn+1]
+    if '--numGames' in sys.argv:
+        indofn = sys.argv.index('--numGames')
+        numofgamesforeach = sys.argv[indofn+1]
+    
+    print "Our agent will play " + numofgamesforeach +" games each upto...  "+ str(maxlevel)+ " reasoning levels" 
+
+# ------------------------------------------------------------------------------------------------
+
+    anslist = []
+    maxavgscore = -float('inf')
+    maxwins = 0
+    depthatmaxscore = 0
+    depthatmaxswins = 0
+    for depthLevel in range(1, maxlevel+1):
+
+        # ------------------------------------------------ here better implementation to remove    .... depth
+        if '-a' in sys.argv:
+            sys.argv.remove('-a')
+        if '--agentArgs' in sys.argv:
+            sys.argv.remove('--agentArgs')
+
+        for arg in sys.argv:
+            if 'depth' in arg:
+                # print "Vishs"
+                sys.argv.remove(arg)
+        
+        # parser.add_option('-k', '--numghosts', type='int', dest='numGhosts',
+        # parser.add_option('-a','--agentArgs',dest='agentArgs',
+        #               help='Comma separated values sent to agent. e.g. "opt1=val1,opt2,opt3=val3"')
+
+        sys.argv.append('-a')
+        # sys.argv.append('depth=' + str(depthLevel))  
+        myagentargs = 'depth=' + str(depthLevel)
+        if withprobflag == 0:
+            myagentargs += ',withprobflag=0'
+        else:            
+            myagentargs += ',withprobflag=1'
+        
+        sys.argv.append(myagentargs)
+        print sys.argv
+
+
+        print " We will run "+ numofgamesforeach+" games for agent with ... Depth Level - "+str(depthLevel)
+        args = readCommand( sys.argv[1:] ) # Get game components based on input
+        print sys.argv
+        returnofrun = runGames( **args )
+        print returnofrun[0], "         --------------------------------------------------------------------------"
+        print returnofrun[1], "         --------------------------------------------------------------------------"
+        print returnofrun[2], "         --------------------------------------------------------------------------"
+
+        if maxavgscore <= returnofrun[1]:
+            maxavgscore = returnofrun[1]
+            depthatmaxscore = depthLevel
+        if maxwins <= returnofrun[2]:
+            maxwins = returnofrun[2]
+            depthatmaxwins = depthLevel
+
+        anslist.append((depthLevel, returnofrun[1], returnofrun[2]))
+
+
+    print anslist
+
+    print maxavgscore, " score at level ", depthatmaxscore
+    print maxwins, " wins  at level ", depthatmaxwins
+# -----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
     # import cProfile
     # cProfile.run("runGames( **args )")

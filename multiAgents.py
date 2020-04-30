@@ -190,11 +190,13 @@ class MultiAgentSearchAgent(Agent):
       is another abstract class.
     """
 
-    def __init__(self, evalFn='scoreEvaluationFunction', depth='2'):
+    def __init__(self, withprobflag, evalFn='scoreEvaluationFunction', depth='2'):
         self.index = 0  # Pacman is always agent index 0
         self.betterEvaluationFunction = util.lookup(evalFn, globals())
         self.evaluationFunction = util.lookup(evalFn, globals())
         self.depth = int(depth)
+        print self.depth, "-----------------------------------------------------------------inside depth---------------"
+        print withprobflag, "-----------------------------------------------------------------inside withprobflag---------------"
 
 
 class MinimaxAgent(MultiAgentSearchAgent):
