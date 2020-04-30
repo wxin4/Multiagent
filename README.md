@@ -21,7 +21,7 @@ NOTES:-
 
 1) TrappedClassic runs very fast, so allowing agent to explore more reasoning levels for each game - (1 to 20 levels)
 
-2) MinimaxClassic runs very slow, so allowing agent to explore less reasoning levels - (1 to 7 levels) ... even 7 takes a lot of time .. so better to explore enter at Max 6 when asked for input
+2) MinimaxClassic runs very slow, so allowing agent to explore less reasoning levels - (1 to 7 levels) ... even 7 takes a lot of time .. so better to give at Max 6 when asked for input of depth
 
 Final ANALYSIS:-
 
