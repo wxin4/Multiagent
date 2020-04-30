@@ -4,13 +4,29 @@ Commands that can be used for running :-
 
 (Use python2 for python2 environment ... otherwise python should be fine)
 
-python pacman.py -p MinimaxAgent -l minimaxClassic -k 1 -n 10
+------------   minimaxClassic Layout with 2 ghosts ----------------------------
 
-python2 pacman.py -p MinimaxAgent -l trappedClassic -k 2 -n 5
+python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5
+
+python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q
+
+python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5 -q
+
+---------------------------------------------------------------------------------
+
+------------   trappedClassic Layout with 1 ghost ----------------------------
+
+python2 pacman.py -p MinimaxAgent -l trappedClassic -k 1 -n 5
  
-python2 pacman.py -p ExpectimaxAgent -l trappedClassic -k 2 -n 5
+python2 pacman.py -p ExpectimaxAgent -l trappedClassic -k 1 -n 5
+
+python2 pacman.py -p MinimaxAgent -l trappedClassic -k 1 -n 5 -q
+ 
+python2 pacman.py -p ExpectimaxAgent -l trappedClassic -k 1 -n 5 -q
+
+-------------------------------------------------------------------------------
 
 STEP 2:
 After you execute any of the above command.
