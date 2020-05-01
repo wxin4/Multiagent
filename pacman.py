@@ -730,33 +730,24 @@ if __name__ == '__main__':
         sys.argv.remove('-a')
     if '--agentArgs' in sys.argv:
         sys.argv.remove('--agentArgs')
-# ------------------------------------------------ here better implementation to remove    .... depth
     for arg in sys.argv:
         if 'depth' in arg:
-            # print "Vishs"
             sys.argv.remove(arg)
-    # print sys.argv
-            
-            # depthArgIndex = ind
-            # depthflag = True
+    
+    print "Let's try reasoning at different levels"    
+    maxlevel = float('inf')
 
-
-    print "Let's try reasoning at different levels"
-    print "Enter the different levels upto which you wanna try:",
-    maxlevel = input()
-
-    # if maxlevel > 10:
     isTrappedClassic = False
     if 'trappedClassic' in sys.argv:
         isTrappedClassic = True
+
     if not isTrappedClassic:
         while maxlevel > 6 or maxlevel < 1:
-            print "Please enter any number between 1 to 6: ",
+            print "Enter Reasoning Level between 1 to 6: ",
             maxlevel = input()
-
     else:
         while maxlevel > 8 or maxlevel < 1:
-            print "For trapped Classic please enter any number between 1 to 8: ",
+            print "Enter Reasoning Level between 1 to 8: ",
             maxlevel = input()
 # ----------------------------------------------------------------------------------------
     # print "Enter any number to run Minimax with probability and 0 for without probability: ",
@@ -785,7 +776,6 @@ if __name__ == '__main__':
     leveltimes = []
     for depthLevel in range(1, maxlevel+1):
 
-        # ------------------------------------------------ here better implementation to remove    .... depth
         if '-a' in sys.argv:
             sys.argv.remove('-a')
         if '--agentArgs' in sys.argv:
@@ -793,15 +783,10 @@ if __name__ == '__main__':
 
         for arg in sys.argv:
             if 'depth' in arg:
-                # print "Vishs"
                 sys.argv.remove(arg)
         
-        # parser.add_option('-k', '--numghosts', type='int', dest='numGhosts',
-        # parser.add_option('-a','--agentArgs',dest='agentArgs',
-        #               help='Comma separated values sent to agent. e.g. "opt1=val1,opt2,opt3=val3"')
-
+        
         sys.argv.append('-a')
-        # sys.argv.append('depth=' + str(depthLevel))  
         myagentargs = 'depth=' + str(depthLevel)
         if withprobflag == 0:
             myagentargs += ',withprobflag=0'
@@ -809,27 +794,22 @@ if __name__ == '__main__':
             myagentargs += ',withprobflag=1'
         
         sys.argv.append(myagentargs)
-        # print sys.argv
-
 
         print "We will run "+ numofgamesforeach+" games for each level with current... Reasoning Level - "+str(depthLevel)
         args = readCommand( sys.argv[1:] ) # Get game components based on input
-        # print sys.argv
         
         levelstartime = time.time()
-        # print tic, "---------------------Game start ------------------"
+        # "---------------------level start ------------------"
 
         returnofrun = runGames( **args )
 
         levelendtime = time.time()
+        # "---------------------level end ---------------------"
         leveltimelapsed = levelendtime-levelstartime
         leveltimelapsed = round(leveltimelapsed, 2)
         print "Time elapsed for this reasoning level: ", leveltimelapsed, " seconds"
 
         leveltimes.append(leveltimelapsed)
-        # print returnofrun[0], "         --------------------------------------------------------------------------"
-        # print returnofrun[1], "         --------------------------------------------------------------------------"
-        # print returnofrun[2], "         --------------------------------------------------------------------------"
 
         if maxavgscore <= returnofrun[1]:
             maxavgscore = returnofrun[1]
@@ -855,11 +835,10 @@ if __name__ == '__main__':
 
     print 
     print 
-    print "----------  ANALYSIS TIME ------------"
+    print "----------  ANALYSIS of GAME ------------"
     print 
 
-    # print thresholdoverthink, "       -------------            thresholdoverthink" 
-    
+   
     lastexectime = 0
     # for ind, leveltime in enumerate(leveltimes):
     #     if leveltime < thresholdoverthink:
@@ -870,18 +849,12 @@ if __name__ == '__main__':
 
     withgraphics = True
     if '-q' in sys.argv or '--quietTextGraphics' in sys.argv:
-        # print "-----------------------------------------------------------------------------------------"
         withgraphics = False
-    # else:
-    #     withgraphics = True
-
-
+    
     if withgraphics:
 
         for ind, leveltime in enumerate(leveltimes):
             if ind > 0:
-                # if withgraphics:
-
                 if leveltime - lastexectime > 8:
                     overthinkinglevels.append(ind+1)
                     break
@@ -896,8 +869,6 @@ if __name__ == '__main__':
 
         for ind, leveltime in enumerate(leveltimes):
             if ind > 0:
-                # if withgraphics:
-
                 if leveltime > lastexectime*4:
                     overthinkinglevels.append(ind+1)
                     break
@@ -910,11 +881,7 @@ if __name__ == '__main__':
     
     n = len(leveltimes)
     for i in range(ind+1, n):
-        # print "Overthinkings -------------"
         overthinkinglevels.append(i+1)
-
-
-
 
         # if leveltime < thresholdoverthink:
         #     underthinkinglevels.append(ind+1)
@@ -932,10 +899,10 @@ if __name__ == '__main__':
         print "No analysis to show"
         print
         exit()
-    
+
 
     # if isTrappedClassic:
-
+    #  ------------------ 
     #     while optimalevel > len(leveltimes)/2 and len(underthinkinglevels)> 0:
     #         # print optimalevel , "          -------hooorororororo----- "
     #         overthinkinglevels.append(optimalevel)
@@ -962,15 +929,12 @@ if __name__ == '__main__':
 
 
 
-    overthinkinglevels.sort()
-
-    
+    overthinkinglevels.sort()  
 
 
     print "(Depth, Average Score, Wins)"
     print anslist
-    # print leveltimes
-    
+  
     print 
     print "--------"
     print 
@@ -993,17 +957,6 @@ if __name__ == '__main__':
     print "Over Thinking Levels--   ", overthinkinglevels 
     print 
 # -----------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
     # import cProfile
     # cProfile.run("runGames( **args )")
     pass
