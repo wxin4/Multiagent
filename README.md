@@ -10,7 +10,7 @@ python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5 -q
 
-python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
+python2 pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5
 
