@@ -7,7 +7,7 @@ The setup is very similar to Project 2 ... Only additional thing is we have used
 * Install `python 2.7` and ensure it is in path
 * Install matplotlib using -> python2 -m pip install matplotlib. (If matplot already installed and you are facing some issues then uninstall using pip uninstall matplotlib) followed by the above command to install matplotlib. 
 * Clone the repository
-* go to multiagent directory
+* Go to `multiagent` directory
 * Inside the directory run command `python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q`  
 * If the above command runs fine, the setup is correct
 
