@@ -2,9 +2,10 @@ NOTE - (Use python2 or python whichever runs python 2 for your environment)
 The setup is very similar to Project 2 ... Only additional thing is we have used matplotlib
 
 
+
 # Setup and Initialization
 * Install `python 2.7` and ensure it is in path
-* Install matplotlib using -> python2 -m pip install matplotlib. (If matplot already installed and you are facing some issues then uninstall using pip uninstall matplotlib) followed by the given command to install matplotlib. 
+* Install matplotlib using -> python2 -m pip install matplotlib. (If matplot already installed and you are facing some issues then uninstall using pip uninstall matplotlib) followed by the above command to install matplotlib. 
 * Clone the repository
 * go to multiagent directory
 * Inside the directory run command `python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q`  
@@ -14,6 +15,9 @@ The setup is very similar to Project 2 ... Only additional thing is we have used
 
 Commands that can be used for running :-
 
+REMINDER - (Use python2 or python whichever runs python 2 for your environment)
+In below commands I have used python2 ... If that doesn't work then try python ... If that also doesn't then use py -2
+
 
 ------------   minimaxClassic Layout with 2 ghosts ----------------------------
 
@@ -21,7 +25,7 @@ python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5 -q
 
-python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
+python2 pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5
 
