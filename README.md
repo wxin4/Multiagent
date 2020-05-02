@@ -31,12 +31,16 @@ python2 pacman.py -p ExpectimaxAgent -l trappedClassic -k 1 -n 5
 
 STEP 2:
 After you execute any of the above command.
-Kindly enter the Reasoning Level Depth upto which you want to explore
+Kindly enter the Reasoning Level Depth upto which you want to explore. 
+
+For example - You give 6
+Then our agent will run 'n' games for reasoning level 1, level 2, ..till... level 6
+Then finally our ANALYZER agent will display ANALYSIS of pacman performance through each of these levels and categorize 1 to 6 levels in three different categories as UNDERTHINKING, OPTIMAL and OVERTHINKING.
 
 
 NOTES:-
 
-1) TrappedClassic runs very fast, so allowing agent to explore more reasoning levels for each game - (1 to 20 levels)
+1) TrappedClassic runs very fast, so allowing agent to explore more reasoning levels for each game - (1 to 8 levels)
 
 2) MinimaxClassic runs very slow, so allowing agent to explore less reasoning levels - (1 to 6 levels) ... level 6 might take a little more time - so if you want to avoid that you can give 5 as max reasoning level
 
