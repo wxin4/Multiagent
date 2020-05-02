@@ -1,3 +1,7 @@
+NOTE - (Use python2 or python whichever runs python 2 for your environment)
+The setup is very similar to Project 2 ... Only additional thing is we have used matplotlib
+
+
 # Setup and Initialization
 * Install `python 2.7` and ensure it is in path
 * Install matplotlib using -> python2 -m pip install matplotlib. (If matplot already installed and you are facing some issues then uninstall using pip uninstall matplotlib) followed by the given command to install matplotlib. 
@@ -5,13 +9,11 @@
 * go to multiagent directory
 * Inside the directory run command `python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q`  
 * If the above command runs fine, the setup is correct
-* run the command `pip install matplotlib` if you don't have it installed in your computer.
 
 # Multiagent
 
 Commands that can be used for running :-
 
-(Use python2 for python2 environment ... otherwise python should be fine)
 
 ------------   minimaxClassic Layout with 2 ghosts ----------------------------
 
