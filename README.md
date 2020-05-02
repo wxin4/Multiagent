@@ -5,7 +5,7 @@
 * Inside the directory run command `python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q`  
 * If the above command runs fine, the setup is correct
 
-# Multiagent Function
+# Multiagent
 
 Commands that can be used for running :-
 
