@@ -6,25 +6,26 @@ Commands that can be used for running :-
 
 ------------   minimaxClassic Layout with 2 ghosts ----------------------------
 
+python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q
+
+python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5 -q
+
 python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5
 
-python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q
-
-python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5 -q
 
 ---------------------------------------------------------------------------------
 
 ------------   trappedClassic Layout with 1 ghost ----------------------------
 
-python2 pacman.py -p MinimaxAgent -l trappedClassic -k 1 -n 5
- 
-python2 pacman.py -p ExpectimaxAgent -l trappedClassic -k 1 -n 5
-
 python2 pacman.py -p MinimaxAgent -l trappedClassic -k 1 -n 5 -q
  
 python2 pacman.py -p ExpectimaxAgent -l trappedClassic -k 1 -n 5 -q
+
+python2 pacman.py -p MinimaxAgent -l trappedClassic -k 1 -n 5
+ 
+python2 pacman.py -p ExpectimaxAgent -l trappedClassic -k 1 -n 5
 
 -------------------------------------------------------------------------------
 
@@ -37,7 +38,7 @@ NOTES:-
 
 1) TrappedClassic runs very fast, so allowing agent to explore more reasoning levels for each game - (1 to 20 levels)
 
-2) MinimaxClassic runs very slow, so allowing agent to explore less reasoning levels - (1 to 7 levels) ... even 7 takes a lot of time .. so better to give at Max 6 when asked for input of depth
+2) MinimaxClassic runs very slow, so allowing agent to explore less reasoning levels - (1 to 6 levels) ... level 6 might take a little more time - so if you want to avoid that you can give 5 as max reasoning level
 
 Final ANALYSIS:-
 
