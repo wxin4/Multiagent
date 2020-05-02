@@ -1,6 +1,6 @@
 # Setup and Initialization
-   
 * Install `python 2.7` and ensure it is in path
+* Install matplotlib using -> python2 -m pip install matplotlib. (If matplot already installed and you are facing some issues then uninstall using pip uninstall matplotlib) followed by the given command to install matplotlib. 
 * Clone the repository
 * go to multiagent directory
 * Inside the directory run command `python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q`  
