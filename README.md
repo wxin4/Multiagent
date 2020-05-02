@@ -1,4 +1,11 @@
-# Multiagent
+# Setup and Initialization
+   
+* Install `python 2.7` 
+* Clone the repository
+* Inside the directory run command `python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q`  
+* If the above command runs fine, the setup is correct
+
+# Multiagent Function
 
 Commands that can be used for running :-
 
@@ -10,7 +17,7 @@ python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5 -q
 
-python2 pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
+python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5
 
 python2 pacman.py -p ExpectimaxAgent -l minimaxClassic -k 2 -n 5
 
@@ -44,7 +51,7 @@ NOTES:-
 
 2) MinimaxClassic runs very slow, so allowing agent to explore less reasoning levels - (1 to 6 levels) ... level 6 might take a little more time - so if you want to avoid that you can give 5 as max reasoning level
 
-Final ANALYSIS:-
+# Final analysis:-
 
 The analysis is displayed towrds the end of execution of all levels. 
 It shows the CLASSIFICATION of levels into :
