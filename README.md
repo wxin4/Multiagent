@@ -4,6 +4,7 @@ The setup is very similar to Project 2 ... Only additional thing is we have used
 
 
 # Setup and Initialization
+* Operating System used windows.
 * Install `python 2.7` and ensure it is in path
 * Install matplotlib using -> python2 -m pip install matplotlib. (If matplot already installed and you are facing some issues then uninstall using pip uninstall matplotlib) followed by the above command to install matplotlib. 
 * Clone the repository
