@@ -4,6 +4,7 @@
 * Clone the repository
 * Inside the directory run command `python pacman.py -p MinimaxAgent -l minimaxClassic -k 2 -n 5 -q`  
 * If the above command runs fine, the setup is correct
+* run the command "pip install matplotlib" if you don't have it installed in your computer.
 
 # Multiagent
 
